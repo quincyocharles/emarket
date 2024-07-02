@@ -12,7 +12,9 @@
           <img class="img-fluid w-100" src="{{ product.image.url }}" alt="" />
         </div>
         <div class="text-center py-4">
-          <a class="h6 text-decoration-none text-truncate" href=""
+          <a
+            class="h6 text-decoration-none text-truncate"
+            href="{% url 'product' product.id %}"
             >{{ product.name }}</a
           >
           <div class="d-flex align-items-center justify-content-center mt-2">
@@ -31,7 +33,9 @@
             <br />
           </div>
           <div class="product-action">
-            <a href="" class="btn btn-sm text-dark p-0"
+            <a
+              href="{% url 'product' product.id %}"
+              class="btn btn-sm text-dark p-0"
               ><i class="fas fa-eye text-primary mr-1"></i>View Detail</a
             >
           </div>
