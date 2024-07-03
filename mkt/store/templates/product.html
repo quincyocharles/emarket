@@ -256,6 +256,7 @@
   //check if button is pressed
   $(document).on("click", "#add-cart", function (e) {
     e.preventDefault();
+
     $.ajax({
       type: "POST",
       url: "{% url 'cart_add' %}",
@@ -268,6 +269,7 @@
       success: function (json) {
         // console.log(json);
         document.getElementById("cart_quantity").textContent = json.qty;
+        location.reload();
       },
       error: function (xhr, errmsg, err) {},
     });
