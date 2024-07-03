@@ -46,7 +46,12 @@
           Update
         </button>
       </div>
-      {% endfor %} {% else %}
+      {% endfor %}
+      <div align="right">
+        <h3>Total: Ksh {{ totals }}</h3>
+        <a href="#" class="btn btn-success">Checkout</a>
+      </div>
+      {% else %}
       <p>There is nothing in your cart...</p>
       {% endif %}
     </div>
@@ -63,7 +68,7 @@
 
     $.ajax({
       type: "POST",
-      url: '{% url "cart_update" %}',
+      url: "{% url 'cart_update' %}",
       data: {
         product_id: $(this).data("index"),
         product_qty: $("#select" + productid + " option:selected").text(),
