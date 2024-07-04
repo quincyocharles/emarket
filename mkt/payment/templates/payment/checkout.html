@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %} <br /><br /><br />
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Order Summary</div>
+        {% for product in cart_products %}
+        <div class="card-body">
+          {{ product.name }}
+          <br />
+          Price: Ksh {{ product.price }} {% endfor %}
+          <br />
+          Quantity: {% for key, value in quantities.items %} {{ value }}
+          {%endfor %}
+          <br /><br />
+          <strong>Total: Ksh {{ totals }}</strong>
+          <br /><br />
+          <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-secondary"
+            >Update Items</a
+          >
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Shipping Info</div>
+        <div class="card-body">{{ shipping_form.as_p }}</div>
+      </div>
+      <br />
+      <button type="submit" class="btn btn-secondary">
+        Continue To Billing
+      </button>
+    </div>
+  </div>
+</div>
+<br /><br /><br />
+{% endblock %}
