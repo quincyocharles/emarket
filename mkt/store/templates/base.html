@@ -37,6 +37,8 @@
 
     <!-- jquery minified -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap js -->
   </head>
 
   <body>
@@ -62,56 +64,21 @@
                 My Account
               </button>
               <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">Sign in</button>
-                <button class="dropdown-item" type="button">Sign up</button>
+                {% if user.is_authenticated %}
+                <button class="dropdown-item" type="button">
+                  <a href="{% url 'logout' %}">Logout</a>
+                </button>
+                {%else%}
+                <button class="dropdown-item" type="button">
+                  <a href="{% url 'login' %}">Login</a>
+                </button>
+
+                <button class="dropdown-item" type="button">
+                  <a href="{% url 'register' %}">Register</a>
+                </button>
+                {% endif %}
               </div>
             </div>
-            <div class="btn-group mx-2">
-              <button
-                type="button"
-                class="btn btn-sm btn-light dropdown-toggle"
-                data-toggle="dropdown"
-              >
-                USD
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">EUR</button>
-                <button class="dropdown-item" type="button">GBP</button>
-                <button class="dropdown-item" type="button">CAD</button>
-              </div>
-            </div>
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-sm btn-light dropdown-toggle"
-                data-toggle="dropdown"
-              >
-                EN
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">FR</button>
-                <button class="dropdown-item" type="button">AR</button>
-                <button class="dropdown-item" type="button">RU</button>
-              </div>
-            </div>
-          </div>
-          <div class="d-inline-flex align-items-center d-block d-lg-none">
-            <a href="" class="btn px-0 ml-2">
-              <i class="fas fa-heart text-dark"></i>
-              <span
-                class="badge text-dark border border-dark rounded-circle"
-                style="padding-bottom: 2px"
-                >0</span
-              >
-            </a>
-            <a href="" class="btn px-0 ml-2">
-              <i class="fas fa-shopping-cart text-dark"></i>
-              <span
-                class="badge text-dark border border-dark rounded-circle"
-                style="padding-bottom: 2px"
-                >0</span
-              >
-            </a>
           </div>
         </div>
       </div>
@@ -204,8 +171,17 @@
       </div>
     </div>
     <!-- Navbar End -->
-
-    {% block content %} {% endblock %}
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %} {% endif %} {% block content %} {% endblock %}
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
@@ -326,5 +302,10 @@
       </div>
     </div>
     <!-- Footer End -->
+
+    <!-- jQuery -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
