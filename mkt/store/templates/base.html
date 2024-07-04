@@ -68,6 +68,12 @@
                 <button class="dropdown-item" type="button">
                   <a href="{% url 'logout' %}">Logout</a>
                 </button>
+                <button class="dropdown-item" type="button">
+                  <a href="{% url 'update_user' %}">User Profile</a>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <a href="{% url 'update_info' %}">User Info</a>
+                </button>
                 {%else%}
                 <button class="dropdown-item" type="button">
                   <a href="{% url 'login' %}">Login</a>
