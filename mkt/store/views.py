@@ -18,6 +18,10 @@ def home(request):
     return render(request, 'home.html', {'products': products})
 
 
+def contact(request):
+    return render(request, 'contact.html', {})
+
+
 def product(request, pk):
     product = (Product.objects.get(id=pk))
     return render(request, 'product.html', {'product': product})
