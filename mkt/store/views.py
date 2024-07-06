@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import Product, Profile
+from . models import Product, Profile, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -16,6 +16,20 @@ from payment.models import ShippingAddress
 def home(request):
     products = Product.objects.all()
     return render(request, 'home.html', {'products': products})
+
+
+def category(request, foo):
+    # Replace Hyphens with Spaces
+    foo = foo.replace('-', ' ')
+    # Grab the category from the url
+    try:
+        # Look Up The Category
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products': products, 'category': category})
+    except:
+        messages.success(request, ("That Category Doesn't Exist..."))
+        return redirect('home')
 
 
 def contact(request):

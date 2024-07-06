@@ -156,6 +156,44 @@
                   >Home</a
                 >
 
+                <div class="nav-item dropdown">
+                  <a
+                    href="#"
+                    class="nav-link dropdown-toggle active"
+                    id="categoriesDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >Categories</a
+                  >
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="categoriesDropdown"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'category' 'Computing' %}"
+                      >Computing</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'category' 'Fashion' %}"
+                      >Fashion</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'category' 'Phones-&-Tablets' %}"
+                      >Phones & Tablets</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'category' 'Health-&-Beauty' %}"
+                      >Health & Beauty</a
+                    >
+                  </div>
+                </div>
+
                 <a href="{% url 'contact' %}" class="nav-item nav-link active"
                   >Contact</a
                 >
