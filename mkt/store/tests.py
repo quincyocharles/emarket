@@ -136,3 +136,67 @@ class TestCategory:
     def test_create_category_with_empty_name(self):
         with pytest.raises(ValueError):
             Category(name="")
+
+
+class TestCustomer:
+
+    # Creating a customer with valid data
+    def test_create_customer_with_valid_data(self):
+        customer = Customer(
+            first_name="John",
+            last_name="Doe",
+            phone="1234567890",
+            email="john.doe@example.com",
+            password="securepassword123"
+        )
+        assert customer.first_name == "John"
+        assert customer.last_name == "Doe"
+        assert customer.phone == "1234567890"
+        assert customer.email == "john.doe@example.com"
+        assert customer.password == "securepassword123"
+
+    # Creating a customer with missing first name
+    def test_create_customer_with_missing_first_name(self):
+        with pytest.raises(ValueError):
+            Customer(
+                first_name="",
+                last_name="Doe",
+                phone="1234567890",
+                email="john.doe@example.com",
+                password="securepassword123"
+            )
+
+
+class TestProduct:
+
+    # Creating a product with all required fields
+    def test_create_product_with_all_required_fields(self, mocker):
+        category = Category.objects.create(name="Electronics")
+        product = Product.objects.create(
+            name="Laptop",
+            price=999.99,
+            category=category,
+            image="uploads/product/laptop.jpg"
+        )
+        assert product.name == "Laptop"
+        assert product.price == 999.99
+        assert product.category == category
+        assert product.image == "uploads/product/laptop.jpg"
+
+    # Creating a product with missing optional fields
+    def test_create_product_with_missing_optional_fields(self, mocker):
+        category = Category.objects.create(name="Electronics")
+        product = Product.objects.create(
+            name="Smartphone",
+            price=499.99,
+            category=category,
+            image="uploads/product/smartphone.jpg"
+        )
+        assert product.name == "Smartphone"
+        assert product.price == 499.99
+        assert product.category == category
+        assert product.image == "uploads/product/smartphone.jpg"
+        assert product.desc == ""
+        assert product.description is None
+        assert product.is_sale is False
+        assert product.sale_price == 0
