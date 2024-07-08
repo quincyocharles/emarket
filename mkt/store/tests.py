@@ -123,3 +123,16 @@ class TestUpdateInfo:
 
         # Check if the user is redirected to home
         assert response.status_code == 302  # Redirects to home
+
+
+class TestCategory:
+
+    # create a category with a valid name
+    def test_create_category_with_valid_name(self):
+        category = Category(name="Electronics")
+        assert category.name == "Electronics"
+
+    # create a category with an empty name
+    def test_create_category_with_empty_name(self):
+        with pytest.raises(ValueError):
+            Category(name="")
