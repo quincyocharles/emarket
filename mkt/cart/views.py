@@ -38,6 +38,10 @@ def cart_add(request):
         return response
 
 
+def cart_delete(request):
+    pass
+
+
 def cart_update(request):
     cart = Cart(request)
     if request.POST.get('action') == 'post':

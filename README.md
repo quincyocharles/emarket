@@ -10,6 +10,36 @@ Checkout process
 Order history
 Admin panel for product management
 
+Folder Structure
+ecommerce-project/
+│
+├── mkt/
+│ ├── **init**.py
+│ ├── settings.py
+│ ├── urls.py
+│ ├── wsgi.py
+│ ├── asgi.py
+│
+├── store/
+│ ├── migrations/
+│ ├── static/
+│ │ ├── css/
+│ │ ├── js/
+│ ├── templates/
+│ │ ├── main/
+│ ├── admin.py
+│ ├── apps.py
+│ ├── models.py
+│ ├── tests.py
+│ ├── urls.py
+│ ├── views.py
+│
+├── media/
+├── static/
+├── templates/
+├── manage.py
+├── requirements.txt
+
 Dependencies
 Django
 Pillow (for image uploads)
