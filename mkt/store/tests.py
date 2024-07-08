@@ -200,3 +200,71 @@ class TestProduct:
         assert product.description is None
         assert product.is_sale is False
         assert product.sale_price == 0
+
+
+class TestOrder:
+
+    # Creating an order with valid product, customer, and quantity
+    def test_create_order_with_valid_data(self, mocker):
+        from mkt.store.models import Order, Product, Customer
+        product = mocker.Mock(spec=Product)
+        customer = mocker.Mock(spec=Customer)
+        order = Order(product=product, customer=customer,
+                      quantity=2, address='123 Street', phone='1234567890')
+        assert order.product == product
+        assert order.customer == customer
+        assert order.quantity == 2
+        assert order.address == '123 Street'
+        assert order.phone == '1234567890'
+
+    # Creating an order with a quantity of zero or negative value
+    def test_create_order_with_invalid_quantity(self, mocker):
+        from mkt.store.models import Order, Product, Customer
+        product = mocker.Mock(spec=Product)
+        customer = mocker.Mock(spec=Customer)
+        with pytest.raises(ValueError):
+            Order(product=product, customer=customer, quantity=0)
+        with pytest.raises(ValueError):
+            Order(product=product, customer=customer, quantity=-1)
+
+
+class TestProfile:
+
+    # Profile creation with valid user
+    def test_profile_creation_with_valid_user(self, db):
+        user = User.objects.create_user(username='testuser', password='12345')
+        profile = Profile.objects.create(user=user)
+        assert profile.user == user
+        assert profile.phone == ''
+        assert profile.address1 == ''
+        assert profile.city == ''
+
+    # Profile creation with missing user
+    def test_profile_creation_with_missing_user(self, db):
+        with pytest.raises(ValueError):
+            Profile.objects.create()
+
+
+class TestCreateProfile:
+
+    # Profile is created when a new User is created
+    def test_profile_created_when_user_created(self, mocker):
+        from mkt.store.models import Profile
+        from django.contrib.auth.models import User
+
+        mocker.patch('mkt.store.models.Profile.save', autospec=True)
+        user = User.objects.create(username='testuser', password='password')
+        create_profile(User, user, True)
+
+        assert Profile.save.called
+        assert Profile.save.call_count == 1
+        assert Profile.save.call_args[0][0].user == user
+
+    # Profile creation when User instance is None
+    def test_profile_creation_with_none_user(self, mocker):
+        from mkt.store.models import Profile
+
+        mocker.patch('mkt.store.models.Profile.save', autospec=True)
+        create_profile(User, None, True)
+
+        assert not Profile.save.called
